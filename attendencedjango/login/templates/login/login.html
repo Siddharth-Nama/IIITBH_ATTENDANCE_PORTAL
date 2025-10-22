@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login Page</title>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+      rel="stylesheet"
+    />
+    <!-- FontAwesome for icons -->
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+      crossorigin="anonymous"
+    />
+    <!-- External CSS -->
+    <link rel="stylesheet" href="../../static/login.css" />
+    <script>
+      // Function to trim input values before form submission
+      function trimInputValues() {
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+
+        // Trim leading and trailing spaces
+        emailInput.value = emailInput.value.trim();
+        passwordInput.value = passwordInput.value.trim();
+      }
+
+      // Add event listener to form submit
+      document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function (event) {
+          trimInputValues();
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <!-- Login Form -->
+    <form method="post" action="/accounts/login/"> 
+      {% csrf_token %}
+      
+      <div class="box-form">
+        <div class="left"></div>
+
+        <div class="right">
+          <h5 class="college-heading">IIIT Bhagalpur</h5>
+          <p style="color: rgb(40, 31, 31)">
+            Welcome to the IIIT Bhagalpur Attendance Portal. Please log in to access your attendance records.
+          </p>
+          {% if messages %}
+      <div class="alert alert-primary custom-alert" role="alert">
+        {% for message in messages %}
+          {{ message }}
+        {% endfor %}
+      </div>
+      {% endif %}
+
+          <div style="align-items: center; justify-content: center; display: flex;">
+            <select class="select" style="padding: 7px;" id="usertype" name="usertype">
+              <option selected><-- Select User Type --></option>
+              <option value="student">Student</option>
+              <option value="teacher">Teacher</option>
+            </select>
+          </div>
+          
+          <div class="inputs" id="inputs">
+            <input type="text" id="email" name="email" placeholder="Email" required />
+            <br />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              required
+            />
+          </div>
+
+          <div class="forget-password">
+            <a href="{% url 'password_reset' %}" style="text-decoration: none">Forgot password?</a>
+          </div>
+          <p style="color: rgb(37, 35, 35)">
+            Don't have an account?
+            <a style="text-decoration: none" href="/newRegistration/">Create Your Account</a> it takes less than a minute.
+          </p>
+          
+          <br />
+          <button type="submit" class="btn" name="submit">Login</button>
+          <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+            <p style="color: rgba(0, 0, 0, 0.808);">Designed and Developed by 
+                <a style="text-decoration: underline; color: black;" href="https://www.linkedin.com/in/siddharth-nama-1bb967256/">Siddharth Nama</a>
+            </p>
+        </div>
+       </div>
+      </div>
+    </form>
+  </body>
+</html>
